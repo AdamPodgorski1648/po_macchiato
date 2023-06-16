@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -7,13 +8,29 @@ import java.util.Map;
 public class Blok extends Instrukcja {
 
     Map<Character,Zmienna> zmienne;
+    Map<String, Procedura> procedury;
     List<Deklaracja> deklaracje;
     List<Instrukcja> instrukcje;
     Blok higherBlok;
 
+    /**
+     * Odczyt procedury
+     * Machiato 2
+     * @param id
+     * @return
+     */
+    public Procedura FindProcedura(String id){
+        if(this.procedury.containsKey(id)){
+            return this.procedury.get(id);
+        }
+        if(this.higherBlok == null){
+            return null;
+        }
+        return this.higherBlok.FindProcedura(id);
+    }
+
     @Override
     public Instrukcja copy(){
-        CharMap zmienneRep = new CharMap();
         List<Deklaracja> deklaracjeRep = new LinkedList<>();
         for(Deklaracja d: this.deklaracje) deklaracjeRep.add(d.copy());
         List<Instrukcja> instrukcjeRep = new LinkedList<Instrukcja>();
@@ -24,6 +41,8 @@ public class Blok extends Instrukcja {
     public void dodajInstrukcje(Instrukcja i){
         this.instrukcje.add(i);
     }
+
+
 
 
     @Override
@@ -94,6 +113,7 @@ public class Blok extends Instrukcja {
     }
     @Override
     public void wykonaj(Blok higherBlok) throws ExceptionInstrukcji {
+        // DIFF1 wchodzimy do bloku, wiec trzeba
         if(Instrukcja.dbg.Flag != Debugv2.DebuggingFlag.noDebug) Instrukcja.dbg.updateBlok(this);
         super.wykonajDebug(this);
         if(Instrukcja.dbg.Flag == Debugv2.DebuggingFlag.exit) return;
@@ -101,7 +121,7 @@ public class Blok extends Instrukcja {
         //for(int i = (int) 'a'; i <= int('z'); i++){}  // po co?
         for(Deklaracja d: this.deklaracje){
             try {
-                d.deklaruj(this.zmienne, this);
+                d.deklaruj(this);
             }
             catch(Exception e){
                 continue;
@@ -115,19 +135,16 @@ public class Blok extends Instrukcja {
                 throw new ExceptionInstrukcji(this);
             }
         }
+
+        // DIFF1 konczymy wykonanie tego bloku, wiec akt blok to bedzie blok wyzszy
+        if(Instrukcja.dbg.Flag != Debugv2.DebuggingFlag.noDebug) Instrukcja.dbg.updateBlok(higherBlok);
     }
-    /*
-    public Blok copyif(){
-        List<Deklaracja> d1 = deklaracje;
-        List<Instrukcja> instrukcje1 = instrukcje;
-        Blok rep = new Blok(d1)
-    }
-     */
     Blok(List<Deklaracja> deklaracje0, List<Instrukcja> instrukcje0){
         this.higherBlok = null;
         this.deklaracje = deklaracje0;
         this.instrukcje = instrukcje0;
-        zmienne = new CharMap();
+        this.zmienne = new CharMap();
+        this.procedury = new HashMap<>();
     }
 
     @Override

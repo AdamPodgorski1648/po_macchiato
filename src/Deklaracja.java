@@ -23,7 +23,8 @@ public class Deklaracja {
         this.character = c;
         this.w = w;
     }
-    public void deklaruj(Map<Character,Zmienna> zmienne, Blok higherBlok) throws Exception {
+    public void deklaruj(Blok higherBlok) throws Exception {
+        Map<Character, Zmienna> zmienne = higherBlok.zmienne;
         int wartosc = 0;
         try{
             wartosc = w.wartosc(higherBlok);
