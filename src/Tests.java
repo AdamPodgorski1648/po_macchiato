@@ -7,6 +7,19 @@ import java.util.List;
 public class Tests {
 
     @Test
+    public void testProcedura(){
+
+    }
+    @Test
+    public void testBuilderFib(){
+
+    }
+    @Test
+    public void testArytmetyka(){
+
+    }
+    public void test
+    @Test
     public void testMain(){ // super dziala, teraz wyjatki
 
         Blok b1,b2;

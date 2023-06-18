@@ -1,3 +1,6 @@
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -56,20 +59,35 @@ public class Debugv2 {
         String in = scan.nextLine();
         char cin = in.charAt(0);
 
-        if(cin == 'm'){
+        if(cin == 'm'){         // memory dump
             String filePath = in.substring(2);
-            
+            try {
+                OutputStream stream = new FileOutputStream(filePath);
+                String s = "Procedury: " + this.aktualnyBlok.printProcedury() + "\nZmienne: "
+                        + this.aktualnyBlok.printZmienne() + "\n";
+                // s to file
+                byte[] strToBytes = s.getBytes();
+                stream.write(strToBytes);
+                //stream.flush(); //??????
+                stream.close();
+
+
+            }
+            catch (Exception e) {
+                return 2;
+            }
+
             return 1;
         }
-        if(cin == 'c'){
+        if(cin == 'c'){         // continue
             this.Flag = DebuggingFlag.cont;
             return 0;
         }
-        if(cin == 'e'){
+        if(cin == 'e'){         // exit
             this.Flag = DebuggingFlag.exit;
             return 0;
         }
-        if(cin == 'd'){
+        if(cin == 'd'){         // print vars
             this.Flag = DebuggingFlag.print;
             //try
             try {
@@ -89,7 +107,7 @@ public class Debugv2 {
                 System.out.println("nieprawidlowa operacja");
             }
         }
-        if(cin == 's'){
+        if(cin == 's'){         // step
             this.Flag = DebuggingFlag.step;
             String num = in.substring(1);
             this.steps = this.getNumer(num);

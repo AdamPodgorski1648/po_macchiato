@@ -12,7 +12,34 @@ public class Blok extends Instrukcja {
     LinkedList<Deklaracja> deklaracje;
     LinkedList<Instrukcja> instrukcje;
     Blok higherBlok;
-
+    public void addProcedury(LinkedList<Procedura> list){
+        for(Procedura p: this.procedury.values()){
+            // jezeli p.id nie jest w list
+            list.add(p);
+        }
+        if(this.higherBlok != null){
+            this.higherBlok.addProcedury(list);
+        }
+    }
+    public String printProcedury(){
+        String rep = new String("");
+        LinkedList<Procedura> procs = new LinkedList<>();
+        this.addProcedury(procs);
+        rep = "" + procs + "";
+        return rep;
+    }
+    public String printZmienne(){
+        String rep = new String("");
+        CharMap map = new CharMap();
+        for(int i = (int) 'a';i <= (int) 'z'; i++){
+            Character c = new Character((char) i);
+            Zmienna z =this.printZmienna(c);
+            if(z != null){
+                rep += ""+ c + " = " + z.wartosc() + "\n";
+            }
+        }
+        return rep;
+    }
     public void runDebug(){
         Instrukcja.debugStart(this);
     }
@@ -178,6 +205,21 @@ public class Blok extends Instrukcja {
                throw new IllegalArgumentException("nie ma zadeklarowanej zmiennej " + a + "\n");
                //throw exception
            }
+        }
+    }
+    public Zmienna printZmienna(Character a){
+        // zlap char poza przedzialem
+        if(zmienne.containsKey(a) && (zmienne.get(a) != null)){
+            return zmienne.get(a);
+        }
+        else{
+            if(this.higherBlok != null) {
+                return this.higherBlok.getZmienna(a);
+            }
+            else{
+                throw new IllegalArgumentException("nie ma zadeklarowanej zmiennej " + a + "\n");
+                //throw exception
+            }
         }
     }
     public Zmienna getZmienna_x_poziom(Character a, int x){
