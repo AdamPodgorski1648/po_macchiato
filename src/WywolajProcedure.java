@@ -5,6 +5,9 @@ public class WywolajProcedure extends Instrukcja{
     private String id;
     private LinkedList<Wyrazenie> argumenty;
 
+    public static WywolajProcedure of(String id, LinkedList<Wyrazenie> list ){
+        return new WywolajProcedure(id,list);
+    }
     public WywolajProcedure(String id, LinkedList<Wyrazenie> argumenty) {
         this.id = id;
         this.argumenty = argumenty;

@@ -1,6 +1,10 @@
 public class Print extends Instrukcja{
     // git
     private Wyrazenie wyraz;
+
+    public static Print of(Wyrazenie w){
+        return new Print(w);
+    }
     @Override
     public void wykonaj(Blok higherblok) {
         super.wykonajDebug(this);

@@ -1,6 +1,9 @@
 import java.util.LinkedList;
 
 public class IfSmallerEqual extends InstrukcjaWarunkowa{
+    public static IfSmallerEqual of(Wyrazenie w1, Wyrazenie w2, LinkedList<Instrukcja> listT,LinkedList<Instrukcja> listF){
+        return (new IfSmallerEqual(w1,w2, listT, listF));
+    }
     @Override
     public String toString() {
         return "{if" +

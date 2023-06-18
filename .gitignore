@@ -5,3 +5,5 @@ out/
 *.iml
 .idea/**/*.xml
 .idea/
+
+lo*.txt

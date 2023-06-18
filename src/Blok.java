@@ -6,7 +6,6 @@ import java.util.Map;
 // na razie git
 
 public class Blok extends Instrukcja {
-
     Map<Character,Zmienna> zmienne;
     Map<String, Procedura> procedury;
     LinkedList<Deklaracja> deklaracje;
@@ -25,9 +24,10 @@ public class Blok extends Instrukcja {
         String rep = new String("");
         LinkedList<Procedura> procs = new LinkedList<>();
         this.addProcedury(procs);
-        rep = "" + procs + "";
+        rep = "" + procs + "\n";
         return rep;
     }
+    /*
     public String printZmienne(){
         String rep = new String("");
         CharMap map = new CharMap();
@@ -36,6 +36,22 @@ public class Blok extends Instrukcja {
             Zmienna z =this.printZmienna(c);
             if(z != null){
                 rep += ""+ c + " = " + z.wartosc() + "\n";
+            }
+        }
+        return rep;
+     */
+    public String printZmienne(){
+        String rep = "";
+        for(int i = (int)('a'); i <= (int)('z'); i++){
+            Zmienna z = null;
+            try{
+                z = this.getZmienna((char) i);
+            }
+            catch (IllegalArgumentException e){
+                continue;
+            }
+            if (z != null){
+                rep += "" + (char) i + ": " + z.wartosc() + "\n";
             }
         }
         return rep;

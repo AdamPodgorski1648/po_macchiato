@@ -6,6 +6,10 @@ public class Petla extends Instrukcja{
     Character c;
     Wyrazenie w;
     List<Instrukcja> list;
+
+    public static Petla of(char c, Wyrazenie w, LinkedList<Instrukcja> list){
+        return new Petla(new Character(c),w,list);
+    }
     @Override
     public Instrukcja copy(){
         List<Instrukcja> listrep = new LinkedList<Instrukcja>();

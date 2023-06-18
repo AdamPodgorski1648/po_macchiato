@@ -12,15 +12,61 @@ public class Tests {
     }
     @Test
     public void testBuilderFib(){
+        // n = 30
+        // i = 1
+        // j = 1
+        // for k , n-1
+        //      l = i + j
+        //      i = j
+        //      j = l
+        //      print l
 
+        Blok program = new Blok.BlokBuilder()
+                .declareVariable('n',Literal.of(40))
+                .declareVariable('i', Literal.of(1))
+                .declareVariable('j', Literal.of(1))
+                .declareVariable('l', Literal.of(2))
+                .loop('k',ZmiennaWyr.named('n'), Lista.of(new Blok.BlokBuilder()
+                        .assign('l', Dodawanie.of(ZmiennaWyr.named('i'), ZmiennaWyr.named('j')))
+                        .assign('i', ZmiennaWyr.named('j'))
+                        .assign('j', ZmiennaWyr.named('l'))
+                        .print(ZmiennaWyr.named('l'))
+                        .build()))
+                .build();
+
+        program.runExecute();
     }
     @Test
     public void testArytmetyka(){
 
+        Blok program = new Blok.BlokBuilder()
+                .declareVariable('x', Literal.of(101))
+                .declareVariable('y', Literal.of(1))
+                .declareVariable('z', Literal.of(37))
+                .declareProcedure("out", Lista.of('a'), new Blok.BlokBuilder()
+                        .print(Dodawanie.of(ZmiennaWyr.named('a'), ZmiennaWyr.named('z')))
+                        .print(Modulo.of(ZmiennaWyr.named('a'), ZmiennaWyr.named('z')))
+                        .print(Mnozenie.of(ZmiennaWyr.named('a'), ZmiennaWyr.named('z')))
+                        .print(Odejmowanie.of(ZmiennaWyr.named('a'), ZmiennaWyr.named('z')))
+                        .build()
+                )
+                .loop('i',Literal.of(5), Lista
+                        .of(Lista
+                                        .of(PrzypisanieWartosci
+                                                .of('x', Odejmowanie
+                                                        .of(ZmiennaWyr.named('x'),Mnozenie
+                                                                .of(Literal.of(15),ZmiennaWyr.named('y'))
+                                                        )
+                                                )
+                                        ),
+                        WywolajProcedure.of("out",Lista.of(ZmiennaWyr.named('x')))))
+                .build();
+
+        program.runExecute();
+
     }
-    public void test
     @Test
-    public void testMain(){ // super dziala, teraz wyjatki
+    public void testMain(){
 
         Blok b1,b2;
 
@@ -191,10 +237,7 @@ public class Tests {
         Print p = new Print(new ZmiennaWyr('l'));
         LinkedList<Instrukcja> listif2 = new LinkedList<Instrukcja>();
         listif2.add(p);
-        /*dzialajace modulo*/
         InstrukcjaWarunkowa if2 = new IfEqual(new Literal(0),new Modulo(new ZmiennaWyr('l'), new Literal(7)),listif2,null);
-        /* nie dzialajace modulo*/
-        //InstrukcjaWarunkowa if2 = new IfEqual(new Literal(3), new Modulo(new ZmiennaWyr('l'), new Literal(0)), listif2, null);
 
         // reszty z dzielenia przez 7 dla fibonaciego = 0
         Deklaracja dn, di, dj;

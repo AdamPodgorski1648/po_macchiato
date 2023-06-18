@@ -6,6 +6,9 @@ public class PrzypisanieWartosci extends Instrukcja{
         this.w = w;
     }
 
+    public static PrzypisanieWartosci of(char c, Wyrazenie w){
+        return new PrzypisanieWartosci(new Character(c),w);
+    }
     @Override
     public void wykonaj(Blok blok) {
         super.wykonajDebug(this);

@@ -1,6 +1,4 @@
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -62,18 +60,26 @@ public class Debugv2 {
         if(cin == 'm'){         // memory dump
             String filePath = in.substring(2);
             try {
-                OutputStream stream = new FileOutputStream(filePath);
+                FileWriter writer = new FileWriter(filePath);
+                BufferedWriter buff = new BufferedWriter(writer);
                 String s = "Procedury: " + this.aktualnyBlok.printProcedury() + "\nZmienne: "
                         + this.aktualnyBlok.printZmienne() + "\n";
+                buff.write(s);
+                buff.close();
+                /*
+                OutputStream stream = new FileOutputStream(filePath);
                 // s to file
                 byte[] strToBytes = s.getBytes();
                 stream.write(strToBytes);
-                //stream.flush(); //??????
+                stream.flush(); //??????
                 stream.close();
+
+                 */
 
 
             }
             catch (Exception e) {
+                System.out.println("blad zapisu" + e );
                 return 2;
             }
 

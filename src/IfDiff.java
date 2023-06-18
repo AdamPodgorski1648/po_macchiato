@@ -1,6 +1,9 @@
 import java.util.LinkedList;
 
 public class IfDiff extends InstrukcjaWarunkowa{
+    public static IfDiff of(Wyrazenie w1, Wyrazenie w2, LinkedList<Instrukcja> listT,LinkedList<Instrukcja> listF){
+        return (new IfDiff(w1,w2, listT, listF));
+    }
     public IfDiff(Wyrazenie w1, Wyrazenie w2, LinkedList<Instrukcja> bTrue, LinkedList<Instrukcja> bFalse) {
         super(w1, w2, bTrue, bFalse);
     }

@@ -1,6 +1,9 @@
 import java.util.LinkedList;
 
 public class IfGreaterEqual extends InstrukcjaWarunkowa{
+    public static IfGreaterEqual of(Wyrazenie w1, Wyrazenie w2, LinkedList<Instrukcja> listT,LinkedList<Instrukcja> listF){
+        return (new IfGreaterEqual(w1,w2, listT, listF));
+    }
 
     @Override
     public String toString() {

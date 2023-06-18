@@ -26,9 +26,9 @@ public class Main {
                 )
                 .build();
 
-        //program.runDebug();    // with debug
-        Instrukcja.executeModeOn();
-        program.runExecute();
+        program.runDebug();    // with debug
+
+        //program.runExecute();
 
         /* old program (v1)
         Blok b1,b2;
