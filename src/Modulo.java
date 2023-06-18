@@ -25,4 +25,8 @@ public class Modulo extends Wyrazenie{
         this.w1 = w1;
         this.w2 = w2;
     }
+
+    public static Modulo of(Wyrazenie w1, Wyrazenie w2){
+        return new Modulo (w1,w2);
+    }
 }

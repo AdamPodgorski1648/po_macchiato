@@ -53,10 +53,14 @@ public class Debugv2 {
         /*
         char cin = (char) scan.nextByte();
          */
-        int intin = 0;
         String in = scan.nextLine();
         char cin = in.charAt(0);
 
+        if(cin == 'm'){
+            String filePath = in.substring(2);
+            
+            return 1;
+        }
         if(cin == 'c'){
             this.Flag = DebuggingFlag.cont;
             return 0;

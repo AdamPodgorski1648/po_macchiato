@@ -21,4 +21,8 @@ public class ZmiennaWyr extends Wyrazenie{
     public ZmiennaWyr(char c) {
         this.c = new Character(c);
     }
+
+    public static ZmiennaWyr named(char c){
+        return new ZmiennaWyr(c);
+    }
 }

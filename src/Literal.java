@@ -18,4 +18,7 @@ public class Literal extends Wyrazenie{
     public Literal(int i){
         this.wartosc = i;
     }
+    public static Wyrazenie of(int i){
+        return new Literal(i);
+    }
 }

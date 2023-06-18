@@ -24,6 +24,9 @@ public class Mnozenie extends Wyrazenie {
         this.w2 = w2;
     }
 
+    public static Mnozenie of(Wyrazenie w1, Wyrazenie w2){
+        return new Mnozenie (w1,w2);
+    }
     @Override
     public int getWartosc() {
         return wartosc;

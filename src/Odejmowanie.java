@@ -21,4 +21,8 @@ public class Odejmowanie extends Wyrazenie{
         this.w1 = w1;
         this.w2 = w2;
     }
+    public static Odejmowanie of(Wyrazenie w1, Wyrazenie w2){
+        return new Odejmowanie(w1,w2);
+    }
+
 }

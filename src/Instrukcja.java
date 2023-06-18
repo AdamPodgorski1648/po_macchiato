@@ -32,7 +32,7 @@ abstract class Instrukcja {
 
             int rep = debug();
             if (rep == 0) return; // exit
-            else if (rep == -1 || rep == 2) {
+            else if (rep == -1 /*|| rep == 3*/) { /** CHECK */
                 while (dbg.ask(this) != 0) {// ask powinien zwracac
                     ;
                 }
@@ -47,7 +47,7 @@ abstract class Instrukcja {
             int rep = debug();
             if (rep == 0) return; // exit
             else if (rep == -1) {
-                while (dbg.ask(ins) != 0) {// ask powinien zwracac
+                while (dbg.ask(ins) != 0) {
                     ;
                 }
             }
@@ -59,9 +59,23 @@ abstract class Instrukcja {
         return rep;
     }
 
-    static void executeStart(Blok blok){}
+    static void executeStart(Blok blok){
+        Instrukcja.executeModeOn();
+        try {
+            //debugModeOn();
+            blok.wykonaj(null);
+        }
+        catch(ExceptionInstrukcji e){
+            //Instrukcja.dbg.printPoziom();
+            if(Instrukcja.dbg.isDebug()) {
+                e.getInst().wypiszZmienne(0);
+                System.out.print(e.getInst());
+            }
+        }
+    }
 
     static void debugStart(Blok blok){
+        Instrukcja.dbg.Flag = Debugv2.DebuggingFlag.step;
 
         try {
             //debugModeOn();

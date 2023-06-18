@@ -3,6 +3,34 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] Args) {
+
+
+        /**
+         * nowy program (v1.1)
+         */
+
+        Blok program = new Blok.BlokBuilder()
+                .declareVariable('x', Literal.of(101))
+                .declareVariable('y', Literal.of(1))
+                .declareProcedure("out", Lista.of('a'), new Blok.BlokBuilder()
+                        .print(Dodawanie.of(ZmiennaWyr.named('a'), ZmiennaWyr.named('x')))
+                        .build()
+                )
+                .assign('x', Odejmowanie.of(ZmiennaWyr.named('x'), ZmiennaWyr.named('y')))
+                .invoke("out", Lista.of(ZmiennaWyr.named('x')))
+                .invoke("out", Lista.of(Literal.of(100)))
+                .block(new Blok.BlokBuilder()
+                        .declareVariable('x', Literal.of(10))
+                        .invoke("out", Lista.of(Literal.of(100)))
+                        .build()
+                )
+                .build();
+
+        //program.runDebug();    // with debug
+        Instrukcja.executeModeOn();
+        program.runExecute();
+
+        /* old program (v1)
         Blok b1,b2;
 
         Petla f1, f2;
@@ -65,7 +93,8 @@ public class Main {
         //          if( k%i = 0)    if1
         //          p = 0       pr3
         //      if(p == 1)      if2
-        /*
-        //          print k;    print  */
+        //          print k;    print
+        */
+
     }
 }

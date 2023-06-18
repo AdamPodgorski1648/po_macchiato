@@ -35,16 +35,16 @@ public class Tests {
         //pierwsza petla for
         pr3 = new PrzypisanieWartosci(new Character('p'), new Literal(0));
 
-        List<Deklaracja> listD2 = new LinkedList<>();
+        LinkedList<Deklaracja> listD2 = new LinkedList<>();
         listD2.add(new Deklaracja(new Character('p'), new Literal(1)));
-        List<Instrukcja> listI3 = new LinkedList<Instrukcja>();
+        LinkedList<Instrukcja> listI3 = new LinkedList<Instrukcja>();
         pr1 = new PrzypisanieWartosci(new Character('k'),new Dodawanie(new ZmiennaWyr('k'), new Literal(2)));
         listI3.add(pr1);
         listI3.add(f2);
         listI3.add(e1);
 
         b2 = new Blok(listD2, listI3);
-        List<Instrukcja> listF1 = new LinkedList<Instrukcja>();
+        LinkedList<Instrukcja> listF1 = new LinkedList<Instrukcja>();
         listF1.add(b2);
         f1 = new Petla(new Character('k'), new Odejmowanie(new ZmiennaWyr('n'), new Literal(1)),listF1);
 
@@ -92,8 +92,8 @@ public class Tests {
         Instrukcja print = new Print(new ZmiennaWyr('k'));
         LinkedList<Instrukcja> listif2 = new LinkedList<Instrukcja>(); listif2.add(print);
         InstrukcjaWarunkowa if2 = new IfEqual(new ZmiennaWyr('k'),new Literal(1),listif2,null);
-        List<Instrukcja> listI = new LinkedList<Instrukcja>();
-        List<Deklaracja> listD = new LinkedList<Deklaracja>();
+        LinkedList<Instrukcja> listI = new LinkedList<Instrukcja>();
+        LinkedList<Deklaracja> listD = new LinkedList<Deklaracja>();
         listI.add(if2);
         Deklaracja d1 = new Deklaracja(new Character('n'), new Literal(30));
         Deklaracja dk = new Deklaracja(new Character('k'), new Literal( 1));
@@ -125,12 +125,12 @@ public class Tests {
         pr1 = new PrzypisanieWartosci('l', new Dodawanie(new ZmiennaWyr('i'), new ZmiennaWyr('j')));
         pr2 = new PrzypisanieWartosci('i', new ZmiennaWyr('j'));
         pr3 = new PrzypisanieWartosci('j', new ZmiennaWyr('l'));
-        List<Instrukcja> listfor = new LinkedList<Instrukcja>();
+        LinkedList<Instrukcja> listfor = new LinkedList<Instrukcja>();
         listfor.add(pr1); listfor.add(pr2); listfor.add(pr3); listfor.add(p);
         Petla f = new Petla('k',new ZmiennaWyr('n'), listfor);
-        List<Instrukcja> listMain = new LinkedList<>();
+        LinkedList<Instrukcja> listMain = new LinkedList<>();
         listMain.add(f);
-        List<Deklaracja> listDek = new LinkedList<>();
+        LinkedList<Deklaracja> listDek = new LinkedList<>();
         listDek.add(dn); listDek.add(di); listDek.add(dj); listDek.add(dl);
         Blok b1 = new Blok(listDek, listMain);
         Instrukcja.executeModeOn();
@@ -158,12 +158,12 @@ public class Tests {
         pr1 = new PrzypisanieWartosci('l', new Dodawanie(new ZmiennaWyr('i'), new ZmiennaWyr('j')));
         pr2 = new PrzypisanieWartosci('i', new ZmiennaWyr('j'));
         pr3 = new PrzypisanieWartosci('j', new ZmiennaWyr('l'));
-        List<Instrukcja> listfor = new LinkedList<Instrukcja>();
+        LinkedList<Instrukcja> listfor = new LinkedList<Instrukcja>();
         listfor.add(pr1); listfor.add(pr2); listfor.add(pr3); listfor.add(p);
         Petla f = new Petla('k',new ZmiennaWyr('n'), listfor);
-        List<Instrukcja> listMain = new LinkedList<>();
+        LinkedList<Instrukcja> listMain = new LinkedList<>();
         listMain.add(f);
-        List<Deklaracja> listDek = new LinkedList<>();
+        LinkedList<Deklaracja> listDek = new LinkedList<>();
         listDek.add(dn); listDek.add(di); listDek.add(dj); listDek.add(dl);
         Blok b1 = new Blok(listDek, listMain);
         Instrukcja.executeModeOn();
@@ -193,15 +193,15 @@ public class Tests {
         pr1 = new PrzypisanieWartosci('l', new Dodawanie(new ZmiennaWyr('i'), new ZmiennaWyr('j')));
         pr2 = new PrzypisanieWartosci('i', new ZmiennaWyr('j'));
         pr3 = new PrzypisanieWartosci('j', new ZmiennaWyr('l'));
-        List<Instrukcja> listfor = new LinkedList<Instrukcja>();
+        LinkedList<Instrukcja> listfor = new LinkedList<Instrukcja>();
         listfor.add(pr1);
         listfor.add(pr2);
         listfor.add(pr3);
         listfor.add(if2);
         Petla f = new Petla('k', new ZmiennaWyr('n'), listfor);
-        List<Instrukcja> listMain = new LinkedList<>();
+        LinkedList<Instrukcja> listMain = new LinkedList<>();
         listMain.add(f);
-        List<Deklaracja> listDek = new LinkedList<>();
+        LinkedList<Deklaracja> listDek = new LinkedList<>();
         listDek.add(dn);
         listDek.add(di);
         listDek.add(dj);
@@ -254,7 +254,7 @@ public class Tests {
         pr1 = new PrzypisanieWartosci('l', new Dodawanie(new ZmiennaWyr('i'), new ZmiennaWyr('j')));
         pr2 = new PrzypisanieWartosci('i', new ZmiennaWyr('j'));
         pr3 = new PrzypisanieWartosci('j', new ZmiennaWyr('l'));
-        List<Instrukcja> listfor = new LinkedList<Instrukcja>();
+        LinkedList<Instrukcja> listfor = new LinkedList<Instrukcja>();
         listfor.add(pr1);
         listfor.add(pr2);
         listfor.add(pr3);
@@ -262,9 +262,9 @@ public class Tests {
         listfor.add(p); // wypisanie zmiennej, potem czy jest podzielna i przez co
         listfor.add(if1);listfor.add(if2);listfor.add(if3);listfor.add(if4);listfor.add(if5);listfor.add(if6);
         Petla f = new Petla('k', new ZmiennaWyr('n'), listfor);
-        List<Instrukcja> listMain = new LinkedList<>();
+        LinkedList<Instrukcja> listMain = new LinkedList<>();
         listMain.add(f);
-        List<Deklaracja> listDek = new LinkedList<>();
+        LinkedList<Deklaracja> listDek = new LinkedList<>();
         listDek.add(dn);
         listDek.add(di);
         listDek.add(dj);

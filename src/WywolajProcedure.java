@@ -11,8 +11,17 @@ public class WywolajProcedure extends Instrukcja{
     }
 
     @Override
+    public String toString() {
+        return "WywolajProcedure{" +
+                "id='" + id + '\'' +
+                ", argumenty=" + argumenty +
+                '}';
+    }
+
+    @Override
     public void wykonaj(Blok higherBlok) throws Exception {
-        super.wykonaj(higherBlok);
+        this.higherBlok = higherBlok;
+        super.wykonaj(this.higherBlok); // tutaj trzeba znowu zmienic zpowrotem na deklaracje  z nazwa
         // wez procedure z higherBloku
         Procedura p = higherBlok.FindProcedura(this.id);    // implement procedura
         p.wywolaj(this.argumenty);

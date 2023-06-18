@@ -9,9 +9,92 @@ public class Blok extends Instrukcja {
 
     Map<Character,Zmienna> zmienne;
     Map<String, Procedura> procedury;
-    List<Deklaracja> deklaracje;
-    List<Instrukcja> instrukcje;
+    LinkedList<Deklaracja> deklaracje;
+    LinkedList<Instrukcja> instrukcje;
     Blok higherBlok;
+
+    public void runDebug(){
+        Instrukcja.debugStart(this);
+    }
+    public void runExecute(){
+        Instrukcja.executeStart(this);
+    }
+    /**
+     * Blok builder
+     */
+    public static class BlokBuilder{
+        public BlokBuilder() {
+            this.dekl = new LinkedList<>();
+            this.instr = new LinkedList<>();
+        }
+        // podstawowa konstrukcja buildera
+        public BlokBuilder addInstrukcja(Instrukcja i){
+            this.instr.add(i);
+            return this;
+        }
+        public BlokBuilder print(Wyrazenie w){
+            return this.addInstrukcja(new Print(w));
+        }
+        public BlokBuilder assign(char c, Wyrazenie w){
+            return this.addInstrukcja(new PrzypisanieWartosci(new Character(c),w));
+        }
+        public BlokBuilder loop(char c, Wyrazenie w, LinkedList<Instrukcja> list){
+            return this.addInstrukcja(new Petla(new Character(c),w,list));
+        }
+        public BlokBuilder invoke(String id, LinkedList<Wyrazenie> list ){
+            return this.addInstrukcja(new WywolajProcedure(id,list));
+        }
+        public BlokBuilder block(Blok b){
+            return this.addInstrukcja(b);
+        }
+
+        public BlokBuilder ifEqual(Wyrazenie w1, Wyrazenie w2,LinkedList<Instrukcja> listT,LinkedList<Instrukcja> listF){
+            return this.addInstrukcja(new IfEqual(w1,w2, listT, listF));
+        }
+        public BlokBuilder ifDiff(Wyrazenie w1, Wyrazenie w2, LinkedList<Instrukcja> listT,LinkedList<Instrukcja> listF){
+            return this.addInstrukcja(new IfDiff(w1,w2, listT, listF));
+        }
+        public BlokBuilder ifGreater(Wyrazenie w1, Wyrazenie w2, LinkedList<Instrukcja> listT,LinkedList<Instrukcja> listF){
+            return this.addInstrukcja(new IfGreater(w1,w2, listT, listF));
+        }
+        public BlokBuilder ifGreaterEqual(Wyrazenie w1, Wyrazenie w2, LinkedList<Instrukcja> listT,LinkedList<Instrukcja> listF){
+            return this.addInstrukcja(new IfGreaterEqual(w1,w2, listT, listF));
+        }
+        public BlokBuilder ifSmallerEqual(Wyrazenie w1, Wyrazenie w2, LinkedList<Instrukcja> listT,LinkedList<Instrukcja> listF){
+            return this.addInstrukcja(new IfSmallerEqual(w1,w2, listT, listF));
+        }
+        public BlokBuilder ifSmaller(Wyrazenie w1, Wyrazenie w2, LinkedList<Instrukcja> listT,LinkedList<Instrukcja> listF){
+            return this.addInstrukcja(new IfSmaller(w1,w2, listT, listF));
+        }
+        /*
+        public static BlokBuilder recurence(){
+
+        }
+        */
+
+        public BlokBuilder addDeklaracja(Deklaracja d){
+            this.dekl.add(d);
+            return this;
+        }
+        public BlokBuilder declareVariable(char c, Wyrazenie w){
+            return this.addDeklaracja(new Deklaracja(new Character(c), w));
+        }
+        public BlokBuilder declareProcedure(String s,LinkedList<Character> nazwy, Blok b){
+            LinkedList<Instrukcja> listI = b.instrukcje;
+            DeklarujProcedure d = new DeklarujProcedure(null,null);
+            d.dodeklaruj(s, listI, nazwy);
+            return this.addDeklaracja(d);
+        }
+
+        public Blok build(){
+            return new Blok(this.dekl, this.instr);
+        }
+
+        LinkedList<Deklaracja> dekl;
+        LinkedList<Instrukcja> instr;
+
+
+    }
 
     /**
      * Odczyt procedury
@@ -31,9 +114,9 @@ public class Blok extends Instrukcja {
 
     @Override
     public Instrukcja copy(){
-        List<Deklaracja> deklaracjeRep = new LinkedList<>();
+        LinkedList<Deklaracja> deklaracjeRep = new LinkedList<>();
         for(Deklaracja d: this.deklaracje) deklaracjeRep.add(d.copy());
-        List<Instrukcja> instrukcjeRep = new LinkedList<Instrukcja>();
+        LinkedList<Instrukcja> instrukcjeRep = new LinkedList<Instrukcja>();
         for(Instrukcja i: this.instrukcje) instrukcjeRep.add(i.copy());
         Blok bRep = new Blok(deklaracjeRep,instrukcjeRep);
         return bRep;
@@ -139,7 +222,7 @@ public class Blok extends Instrukcja {
         // DIFF1 konczymy wykonanie tego bloku, wiec akt blok to bedzie blok wyzszy
         if(Instrukcja.dbg.Flag != Debugv2.DebuggingFlag.noDebug) Instrukcja.dbg.updateBlok(higherBlok);
     }
-    Blok(List<Deklaracja> deklaracje0, List<Instrukcja> instrukcje0){
+    Blok(LinkedList<Deklaracja> deklaracje0, LinkedList<Instrukcja> instrukcje0){
         this.higherBlok = null;
         this.deklaracje = deklaracje0;
         this.instrukcje = instrukcje0;

@@ -29,10 +29,10 @@ public class Petla extends Instrukcja{
                 System.out.println("blad wyliczania wyrazenia");
             return;
         }
-        List<Deklaracja> listD = new LinkedList<Deklaracja>();
+        LinkedList<Deklaracja> listD = new LinkedList<Deklaracja>();
         for(int i = 0;i < n; i++){
 
-            List<Instrukcja> listI = new LinkedList<Instrukcja>();
+            LinkedList<Instrukcja> listI = new LinkedList<Instrukcja>();
             for(Instrukcja ins: this.list) listI.add(ins.copy());
             listD.add(new Deklaracja(this.c,new Literal(i)));
             Blok bp = new Blok(listD, listI);

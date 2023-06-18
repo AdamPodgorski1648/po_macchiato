@@ -24,6 +24,9 @@ public class Dodawanie extends Wyrazenie{
         this.w1 = w1;
         this.w2 = w2;
     }
+    public static Dodawanie of(Wyrazenie w1, Wyrazenie w2){
+        return new Dodawanie (w1,w2);
+    }
 
     @Override
     public int getWartosc() {
